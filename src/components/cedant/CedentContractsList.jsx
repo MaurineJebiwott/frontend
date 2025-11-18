@@ -19,6 +19,10 @@ export default function CedentContractsList({reload}) {
 
     fetchContracts();
   }, [reload]); //refresh whenever reload changes 
+  function formatNumber(num) {
+    if (num == null) return "";
+    return Number(num).toLocaleString();
+  }
 
   if (loading) return <p>Loading your contracts...</p>;
 
@@ -45,7 +49,7 @@ export default function CedentContractsList({reload}) {
             {contracts.map((c) => (
               <tr key={c.id} className="text-center border-t">
                 <td className="px-4 py-2 border">{c.type}</td>
-                <td className="px-4 py-2 border">{c.coverage}</td>
+                <td className="px-4 py-2 border">{formatNumber(c.coverage)}</td>
                 <td className="px-4 py-2 border">{c.start_date}</td>
                 <td className="px-4 py-2 border">{c.end_date}</td>
                 <td className="px-4 py-2 border">{c.status}</td>

@@ -41,8 +41,8 @@ export default function CedentContractsList({reload}) {
               <th className="px-4 py-2 border">Start</th>
               <th className="px-4 py-2 border">End</th>
               <th className="px-4 py-2 border">Status</th>
-              <th className="px-4 py-2 border">Reinsurer</th>
-              <th className="px-4 py-2 border">Share (%)</th>
+              <th className="px-4 py-2 border">Participations</th>
+              <th className="px-4 py-2 border">Remaining %</th>
             </tr>
           </thead>
           <tbody>
@@ -54,11 +54,19 @@ export default function CedentContractsList({reload}) {
                 <td className="px-4 py-2 border">{c.end_date}</td>
                 <td className="px-4 py-2 border">{c.status}</td>
                 <td className="px-4 py-2 border">
-                  {c.reinsurer_name || "—"}
+                  {c.participations && c.participations.length > 0 ? (
+                    <ul className="text-left">
+                      {c.participations.map((p) => (
+                        <li key={p.id}>
+                          {p.reinsurer_name} - {p.percentage_taken}% ({p.status})
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "—"
+                  )}
                 </td>
-                <td className="px-4 py-2 border">
-                  {c.share_percentage || "—"}
-                </td>
+                <td className="px-4 py-2 border">{c.remaining_percentage}%</td>
               </tr>
             ))}
           </tbody>
